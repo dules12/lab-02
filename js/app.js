@@ -13,13 +13,12 @@ Creature.allCreatures = [];
 Creature.prototype.render = function() {
   $('main').append('<div class="clone"></div>'); //APPENDS A DIV CLASS=CLONE TO MAIN (HTML TAG)
   let creatureClone = $('div[class="clone"]'); //HTML ELEMENT
-  let creatureHtml = $('#creature-template').html(); //CONTENTS (INNERHTML) OF DOG-TEMPLATE
+  let creatureHtml = $('#photo-template').html(); //CONTENTS (INNERHTML) OF DOG-TEMPLATE\
   creatureClone.html(creatureHtml) //CONTENTS OF DOGCLONE IS NOW DOGHTML
   creatureClone.find('h2').text(this.title); //RETURNS FIRST H2 TAG AVAILABLE IN DOG-TEMPLATE CLASS AND SETS THE TEXT TO THIS.NAME
   creatureClone.find('img').attr('src', this.image_url); //RETURNS FIRST IMG TAG AVAILABLE IN DOG-TEMPLATE CLASS AND SETS THE TEXT TO THIS.NAME
   creatureClone.find('p').text(this.description);
-  creatureClone.find('p').text(this.keyword);
-  creatureClone.find('p').text(this.horns);
+
   creatureClone.removeClass('clone'); //REMOVES #DOG-TEMPLATE CLASS
   creatureClone.attr('class', this.name); //SETTING DOGCLONE ATTR TO THIS.NAME
 }
