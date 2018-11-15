@@ -22,7 +22,21 @@ Creature.prototype.render = function() {
   creatureClone.attr('class', this.name); //SETTING CreatureClone ATTR TO THIS.NAME
 }
 
-function dropDownMenu() {
+Creature.readJson = () => {
+  $.get('../data/page-1.json', 'json')
+    .then(data => {
+      data.forEach(obj => {
+        Creature.allCreatures.push(new Creature(obj)); //PUSHES creatures TO allCreatures[]
+      })
+    })
+    .then(Creature.loadCreatures)
+    .then(dropDownMenu)
+  }
+    Creature.loadCreatures = () => { 
+    Creature.allCreatures.forEach(creature => creature.render())
+  }
+
+  function dropDownMenu() {
   let nonRepeatedArray = [];
   Creature.allCreatures.forEach ((ele)=>{
     if(!nonRepeatedArray.includes(ele.keyword)){
@@ -35,20 +49,22 @@ function dropDownMenu() {
   })
 }
 
+$(`select[name = "keyword"]`).on('change', function() {
+  //hide all URL
+  let $picDisplay = $(this).val(); //array to hold selected keyword image
+  $('img').hide();
+  $('p').hide();
+  $('h2').hide();
+  $(`img[keyword="${$picDisplay}"]`).show();
+  $(`h2[keyword="${$picDisplay}"]`).show();
+  $(`p[keyword="${$picDisplay}"]`).show();
+})
+  // if(creature.keyword === //includes keyword from .json data) {  //if statement that will pushes indicated pictures into array 
+  //   picArray.push(//any image url that matches keyword)
+   //display picArray
 
-Creature.readJson = () => {
-  $.get('../data/page-1.json', 'json')
-    .then(data => {
-      data.forEach(obj => {
-        Creature.allCreatures.push(new Creature(obj)); //PUSHES creatures TO allCreatures[]
-      })
-    })
-    .then(Creature.loadCreatures)
-    .then(dropDownMenu)
-}
-Creature.loadCreatures = () => { //CALLS THE RENDER FUNCTION FOR EACH Creature OBJ
-  Creature.allCreatures.forEach(creature => creature.render())
-}
+
+  //CALLS THE RENDER FUNCTION FOR EACH Creature OBJ
+
 
 $(() => Creature.readJson()); //CALLS READJSON
-
