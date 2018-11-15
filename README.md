@@ -16,7 +16,7 @@ Number and name of feature: #2, Filter Images
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 1:25 am
+Start time: 11:00
 
 Finish time:
 
