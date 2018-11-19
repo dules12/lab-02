@@ -21,50 +21,28 @@ Creature.prototype.render = function() {
   creatureClone.removeClass('clone'); //REMOVES #PHTO-TEMPLATE CLASS
   creatureClone.attr('class', this.name); //SETTING CreatureClone ATTR TO THIS.NAME
 }
-
+// function dropDownMenu() {
+//   let nonRepeatedArray = [];
+//   Creature.allCreatures.forEach ((ele)=>{
+//     if(!nonRepeatedArray.includes(ele.keyword)){
+//       nonRepeatedArray.push(ele.keyword);
+//     }
+//   })
+//   nonRepeatedArray.forEach ((ele)=>{
+//     $('select').append(`<option value = "${ele}">${ele}</option>`)
+//   })
+// }
 Creature.readJson = () => {
-  $.get('../data/page-1.json', 'json')
+  $.get('data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
         Creature.allCreatures.push(new Creature(obj)); //PUSHES creatures TO allCreatures[]
       })
     })
     .then(Creature.loadCreatures)
-    .then(dropDownMenu)
-  }
-    Creature.loadCreatures = () => { 
-    Creature.allCreatures.forEach(creature => creature.render())
-  }
-
-  function dropDownMenu() {
-  let nonRepeatedArray = [];
-  Creature.allCreatures.forEach ((ele)=>{
-    if(!nonRepeatedArray.includes(ele.keyword)){
-      nonRepeatedArray.push(ele.keyword);
-    }
-  })
-  nonRepeatedArray.forEach ((ele)=>{
-    $('select').append(`<option value = "${ele}">${ele}</option>`)
-
-  })
+    // .then(dropDownMenu)
 }
-
-$(`select[name = "keyword"]`).on('change', function() {
-  //hide all URL
-  let $picDisplay = $(this).val(); //array to hold selected keyword image
-  $('img').hide();
-  $('p').hide();
-  $('h2').hide();
-  $(`img[keyword="${$picDisplay}"]`).show();
-  $(`h2[keyword="${$picDisplay}"]`).show();
-  $(`p[keyword="${$picDisplay}"]`).show();
-})
-  // if(creature.keyword === //includes keyword from .json data) {  //if statement that will pushes indicated pictures into array 
-  //   picArray.push(//any image url that matches keyword)
-   //display picArray
-
-
-  //CALLS THE RENDER FUNCTION FOR EACH Creature OBJ
-
-
+Creature.loadCreatures = () => { //CALLS THE RENDER FUNCTION FOR EACH Creature OBJ
+  Creature.allCreatures.forEach(creature => creature.render())
+}
 $(() => Creature.readJson()); //CALLS READJSON
