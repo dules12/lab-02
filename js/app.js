@@ -21,26 +21,26 @@ Creature.prototype.render = function() {
   creatureClone.removeClass('clone'); //REMOVES #PHTO-TEMPLATE CLASS
   creatureClone.attr('class', this.name); //SETTING CreatureClone ATTR TO THIS.NAME
 }
-// function dropDownMenu() {
-//   let nonRepeatedArray = [];
-//   Creature.allCreatures.forEach ((ele)=>{
-//     if(!nonRepeatedArray.includes(ele.keyword)){
-//       nonRepeatedArray.push(ele.keyword);
-//     }
-//   })
-//   nonRepeatedArray.forEach ((ele)=>{
-//     $('select').append(`<option value = "${ele}">${ele}</option>`)
-//   })
-// }
+function dropDownMenu() {
+  let nonRepeatedArray = [];
+  Creature.allCreatures.forEach ((ele)=>{
+    if(!nonRepeatedArray.includes(ele.keyword)){
+      nonRepeatedArray.push(ele.keyword);
+    }
+  })
+  nonRepeatedArray.forEach ((ele)=>{
+    $('.drop-down').append(`<option value = "${ele}">${ele}</option>`)
+  })
+}
 Creature.readJson = () => {
-  $.get('data/page-1.json', 'json')
+  $.get('../data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
         Creature.allCreatures.push(new Creature(obj)); //PUSHES creatures TO allCreatures[]
       })
     })
     .then(Creature.loadCreatures)
-    // .then(dropDownMenu)
+    .then(dropDownMenu)
 }
 Creature.loadCreatures = () => { //CALLS THE RENDER FUNCTION FOR EACH Creature OBJ
   Creature.allCreatures.forEach(creature => creature.render())
